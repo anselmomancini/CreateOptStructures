@@ -98,7 +98,7 @@ namespace CreateOptStructures
                 {
                     Structure oar = _ss.Structures.FirstOrDefault(x => x.Id.ToLower() == cb.Content.ToString().ToLower());
 
-                    string id = oar.Id + "_opt";
+                    string id = GenerateOarOptId(oar.Id);
 
                     if (_ss.CanAddStructure("CONTROL", id))
                         _ss.AddStructure("CONTROL", id);
@@ -109,6 +109,15 @@ namespace CreateOptStructures
                     MessageBox.Show(string.Format($"Estrutura {id} gerada."));
                 }
             }
+        }
+
+        private string GenerateOarOptId(string oarId)
+        {
+            if (oarId.Length <= 12)
+                return oarId + "_opt";
+
+            else
+                return oarId.Substring(0, 12) + "_opt";
         }
     }
 }
